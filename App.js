@@ -63,6 +63,7 @@ const App = () => {
     },
   ];
 
+  console.log(userStories.map(item => item.profileImage));
   return (
     <SafeAreaView>
       <View style={globalStyle.headers}>
