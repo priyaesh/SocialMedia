@@ -12,6 +12,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faEnvelope} from '@fortawesome/free-regular-svg-icons';
 import globalStyle from './assets/styles/globalStyle';
 import UserStory from './components/UserStory/UserStory';
+import UserPost from './components/UserPost/UserPost';
 //import {asset} from './react-native.config';
 
 const App = () => {
@@ -69,6 +70,8 @@ const App = () => {
       lastName: 'Becker',
       location: 'chennai',
       likes: 12,
+      image: require('./assets/images/default_post.png'),
+      profileImage: require('./assets/images/default_profile.png'),
       comment: 23,
       bookmark: 4,
       id: 1,
@@ -78,6 +81,8 @@ const App = () => {
       lastName: 'Hendry',
       location: 'chennai',
       likes: 24,
+      image: require('./assets/images/default_post.png'),
+      profileImage: require('./assets/images/default_profile.png'),
       comment: 2,
       bookmark: 14,
       id: 2,
@@ -87,6 +92,8 @@ const App = () => {
       lastName: 'Hendry',
       location: 'chei',
       likes: 234,
+      image: require('./assets/images/default_post.png'),
+      profileImage: require('./assets/images/default_profile.png'),
       comment: 22,
       bookmark: 4,
       id: 3,
@@ -96,6 +103,8 @@ const App = () => {
       lastName: 'Chandra',
       location: 'ooty',
       likes: 878,
+      image: require('./assets/images/default_post.png'),
+      profileImage: require('./assets/images/default_profile.png'),
       comment: 29,
       bookmark: 5,
       id: 4,
@@ -105,6 +114,8 @@ const App = () => {
       lastName: 'Chdra',
       location: 'Kemberly',
       likes: 8781,
+      image: require('./assets/images/default_post.png'),
+      profileImage: require('./assets/images/default_profile.png'),
       comment: 9,
       bookmark: 52,
       id: 5,
@@ -138,7 +149,8 @@ const App = () => {
     setIsLoadingUserStories(false);
   }, []);
 
-  console.log(userStories.map(item => item.profileImage));
+  //console.log(userStories.map(item => item.profileImage));
+  console.log(userPosts.map(item => item.firstName));
   return (
     <SafeAreaView>
       <View style={globalStyle.headers}>
@@ -177,6 +189,23 @@ const App = () => {
               key={item.id}
               firstName={item.firstName}
               profileImage={item.profileImage}
+            />
+          )}
+        />
+      </View>
+      <View style={globalStyle.userPostContainer}>
+        <FlatList
+          data={userPosts}
+          renderItem={({item}) => (
+            <UserPost
+              firstName={item.firstName}
+              lastName={item.lastName}
+              image={item.image}
+              likes={item.likes}
+              comments={item.comments}
+              bookmark={item.bookmark}
+              profileImage={item.profileImage}
+              location={item.location}
             />
           )}
         />

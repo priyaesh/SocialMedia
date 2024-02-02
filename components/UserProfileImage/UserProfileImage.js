@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import style from '../UserStory/style';
 
 const UserProfileImage = props => {
+  console.log('I am inside the userprofile image');
   return (
     <View
       style={[style.userImageContainer, {borderRadius: props.imageDimensions}]}>
