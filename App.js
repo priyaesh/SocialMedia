@@ -153,60 +153,75 @@ const App = () => {
   console.log(userPosts.map(item => item.firstName));
   return (
     <SafeAreaView>
-      <View style={globalStyle.headers}>
-        <Title title={"Let's Explore"} />
-        <TouchableOpacity style={globalStyle.messageIcon}>
-          <FontAwesomeIcon icon={faEnvelope} size={20} color={'#898DAE'} />
-          <View style={globalStyle.messageNumberContainer}>
-            <Text style={globalStyle.messageNumber}>2</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-      <View style={globalStyle.userStoryContainer}>
+      <View>
         <FlatList
-          onEndReachedThreshold={0.5}
-          onEndReached={() => {
-            if (isLoadingUserStories) {
-              return;
-            }
-            setIsLoadingUserStories(true);
-            const contentToAppend = pagination(
-              userStories,
-              userStoriesCurrentPage + 1,
-              userStoriesPageSize,
-            );
-            if (contentToAppend.length > 0) {
-              setUserStoriesCurrentPage(userStoriesCurrentPage + 1);
-              setUserStoriesRenderedData(prev => [...prev, ...contentToAppend]);
-            }
-            setIsLoadingUserStories(false);
-          }}
-          showsHorizontalScrollIndicator={false}
-          horizontal={true}
-          data={userStoriesRenderedData}
-          renderItem={({item}) => (
-            <UserStory
-              key={item.id}
-              firstName={item.firstName}
-              profileImage={item.profileImage}
-            />
-          )}
-        />
-      </View>
-      <View style={globalStyle.userPostContainer}>
-        <FlatList
+          ListHeaderComponent={
+            <>
+              <View style={globalStyle.headers}>
+                <Title title={"Let's Explore"} />
+                <TouchableOpacity style={globalStyle.messageIcon}>
+                  <FontAwesomeIcon
+                    icon={faEnvelope}
+                    size={20}
+                    color={'#898DAE'}
+                  />
+                  <View style={globalStyle.messageNumberContainer}>
+                    <Text style={globalStyle.messageNumber}>2</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+
+              <View style={globalStyle.userStoryContainer}>
+                <FlatList
+                  onEndReachedThreshold={0.5}
+                  onEndReached={() => {
+                    if (isLoadingUserStories) {
+                      return;
+                    }
+                    setIsLoadingUserStories(true);
+                    const contentToAppend = pagination(
+                      userStories,
+                      userStoriesCurrentPage + 1,
+                      userStoriesPageSize,
+                    );
+                    if (contentToAppend.length > 0) {
+                      setUserStoriesCurrentPage(userStoriesCurrentPage + 1);
+                      setUserStoriesRenderedData(prev => [
+                        ...prev,
+                        ...contentToAppend,
+                      ]);
+                    }
+                    setIsLoadingUserStories(false);
+                  }}
+                  showsHorizontalScrollIndicator={false}
+                  horizontal={true}
+                  data={userStoriesRenderedData}
+                  renderItem={({item}) => (
+                    <UserStory
+                      key={item.id}
+                      firstName={item.firstName}
+                      profileImage={item.profileImage}
+                    />
+                  )}
+                />
+              </View>
+            </>
+          }
           data={userPosts}
+          showsVerticalScrollIndicator={false}
           renderItem={({item}) => (
-            <UserPost
-              firstName={item.firstName}
-              lastName={item.lastName}
-              image={item.image}
-              likes={item.likes}
-              comments={item.comments}
-              bookmark={item.bookmark}
-              profileImage={item.profileImage}
-              location={item.location}
-            />
+            <View style={globalStyle.userPostContainer}>
+              <UserPost
+                firstName={item.firstName}
+                lastName={item.lastName}
+                image={item.image}
+                likes={item.likes}
+                comments={item.comments}
+                bookmark={item.bookmark}
+                profileImage={item.profileImage}
+                location={item.location}
+              />
+            </View>
           )}
         />
       </View>
